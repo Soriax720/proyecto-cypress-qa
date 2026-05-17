@@ -19,6 +19,21 @@ describe('Casos de prueba de FRONT', () => {
     cy.contains('One Item added to cart').should('be.visible')
     //accion paso 3:
     cy.get('.mdc-icon-button.mat-mdc-icon-button.mat-mdc-button-base.mat-unthemed').contains('shopping_cart').click()
+    //respuesta del paso 3:
+    cy.contains('Harry Potter and the Chamber of Secrets').should('be.visible')
+
+    //accion paso 4
+    cy.get('button').contains('CheckOut').click()
+
+    //respuesta paso 4
+    cy.url().should('include', '/checkout')
+    cy.get('tr').eq(1).should('contain','Harry Potter and the Chamber of Secrets')
+    cy.get('input[formcontrolname="name"]').should('be.visible')
+    cy.get('input[formcontrolname="addressLine1"]').should('be.visible')
+    cy.get('input[formcontrolname="addressLine2"]').should('be.visible')
+    cy.get('input[formcontrolname="pincode"]').should('be.visible')
+    cy.get('input[formcontrolname="state"]').should('be.visible')
+
 
   })
 })
