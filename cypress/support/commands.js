@@ -1,25 +1,53 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+const pageLogin = require('../support/page_objects/pageLogin')
+
+Cypress.Commands.add('login', (user, password) => {
+    pageLogin.typeUserName(user);
+    pageLogin.typePassword(password);
+    pageLogin.clickLoginButton();
+})
+Cypress.Commands.add('deleteCartAPI', (userId, token) => {
+    cy.request({
+        method: 'DELETE',
+        url: `https://app.bookdbqa.online/api/shoppingcart/${userId}`,
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            authorization: token
+
+        },
+
+    })
+})
+Cypress.Commands.add('postCheckOutAPI', (userId, token, codeResponse) => {
+
+    cy.request({
+        method: 'POST',
+        url: `https://app.bookdbqa.online/api/CheckOut/${userId}`,
+        failOnStatusCode: false, // importante para que cypress no falle automaticamente ante un error 400 o 500
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            authorization: token,
+        },
+        body:
+        {
+            "orderDetails": [
+                {
+                    "book": {
+                        "bookId": 3,
+                        "title": "Harry Potter and the Prisoner of Azkaban",
+                        "author": "JKR",
+                        "category": "Romance",
+                        "price": 213,
+                        "coverFileName": "c63ade52-3f90-41fa-980a-1136b6ad2128HP3.jpg"
+                    },
+                    "quantity": 1
+                }
+            ],
+            "cartTotal": 213
+        }
+    }).then((response) => {
+        expect(response.status).to.eq(codeResponse)
+    })
+
+})
