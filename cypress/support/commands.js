@@ -1,9 +1,15 @@
 const pageLogin = require('../support/page_objects/pageLogin')
+const pageHome = require('../support/page_objects/pageHome')
 
 Cypress.Commands.add('login', (user, password) => {
     pageLogin.typeUserName(user);
     pageLogin.typePassword(password);
     pageLogin.clickLoginButton();
+})
+Cypress.Commands.add('prepareGuestShoppingCart' ,() => {
+    pageHome.verifyBooksLoaded();
+    pageHome.clickAddToCartButton();
+    pageHome.validateToastMessage();
 })
 Cypress.Commands.add('deleteCartAPI', (userId, token) => {
     cy.request({

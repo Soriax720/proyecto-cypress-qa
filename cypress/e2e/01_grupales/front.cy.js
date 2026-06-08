@@ -30,7 +30,7 @@ describe('Casos de prueba de FRONT', () => {
     componentNav.clickShoppingCart()
 
 
-    cy.contains(bookTest.title).should('be.visible');
+    pageShoppingCart.checkVisibleBook(bookTest.title)
 
     pageShoppingCart.clickCheckoutButton()
 

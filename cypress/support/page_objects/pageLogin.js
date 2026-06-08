@@ -10,6 +10,11 @@ class pageLogin {
         cy.get('app-login button').contains('Login').click()
     }
 
-
+    verifyUsernameFieldVisible(){
+        cy.get('input[formcontrolname="username"]').should('be.visible')
+    }
+    passwordFieldVerification(){
+        cy.get('input[formcontrolname="password"]').should('be.visible')
+    }
 
 } module.exports = new pageLogin();
