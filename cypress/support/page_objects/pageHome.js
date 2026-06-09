@@ -12,5 +12,7 @@ class pageHome {
         cy.contains('One Item added to cart', { timeout: 10000 }).should('be.visible')
     }
 
-
+    clickFirstBookCard() {
+        cy.get('app-book-card').first().click()
+    }
 } module.exports = new pageHome();
