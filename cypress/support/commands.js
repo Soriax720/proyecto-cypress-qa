@@ -71,4 +71,35 @@ Cypress.Commands.add('getBookAPI', (bookId, codeResponse) => {
     }).then((response) => {
         expect(response.status).to.eq(codeResponse)
     })
+    
+})
+// Comando para la precondición de Luis: Agregar libro al carrito
+Cypress.Commands.add('addBookToCartAPI', (userId, bookId, token) => {
+    cy.request({
+        method: 'POST',
+        url: `https://app.bookdbqa.online/api/ShoppingCart/AddToCart/${userId}/${bookId}`,
+        failOnStatusCode: false,
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            authorization: token // Toma el Bearer token de tu user.json
+        }
+    })
+})
+
+// Comando para el test principal de Luis: Checkout con datos de envío
+Cypress.Commands.add('checkoutShippingAPI', (userId, token, shippingData, expectedStatus) => {
+    cy.request({
+        method: 'POST',
+        url: `https://app.bookdbqa.online/api/CheckOut/${userId}`,
+        failOnStatusCode: false,
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            authorization: token
+        },
+        body: shippingData // Le pasamos el JSON con los datos de envío
+    }).then((response) => {
+        expect(response.status).to.eq(expectedStatus)
+    })
 })
