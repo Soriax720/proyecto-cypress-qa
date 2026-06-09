@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import book from '../../fixtures/books.json'
 describe('Caso de prueba de APIs', () => {
-    it('API | Obtener carrito de compras vacío exitosamente', () => {
+    it('API | Obtener detalles de un libro existente exitosamente', () => {
         
         cy.getBookAPI(2, 200)
 

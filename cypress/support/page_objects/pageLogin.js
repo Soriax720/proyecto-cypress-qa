@@ -13,7 +13,7 @@ class pageLogin {
     verifyUsernameFieldVisible(){
         cy.get('input[formcontrolname="username"]').should('be.visible')
     }
-    passwordFieldVerification(){
+    verifyPasswordFieldVisible(){
         cy.get('input[formcontrolname="password"]').should('be.visible')
     }
 
