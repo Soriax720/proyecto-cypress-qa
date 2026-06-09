@@ -1,9 +1,15 @@
 const pageLogin = require('../support/page_objects/pageLogin')
-
+const pageHome = require('../support/page_objects/pageHome')
+const pageShoppingCart = require('../support/page_objects/pageShoppingCart')
 Cypress.Commands.add('login', (user, password) => {
     pageLogin.typeUserName(user);
     pageLogin.typePassword(password);
     pageLogin.clickLoginButton();
+})
+Cypress.Commands.add('prepareGuestShoppingCart' ,() => {
+    pageHome.verifyBooksLoaded();
+    pageHome.clickAddToCartButton();
+    pageHome.validateToastMessage();
 })
 Cypress.Commands.add('deleteCartAPI', (userId, token) => {
     cy.request({
@@ -23,7 +29,7 @@ Cypress.Commands.add('postCheckOutAPI', (userId, token, codeResponse) => {
     cy.request({
         method: 'POST',
         url: `https://app.bookdbqa.online/api/CheckOut/${userId}`,
-        failOnStatusCode: false, // importante para que cypress no falle automaticamente ante un error 400 o 500
+        failOnStatusCode: false, 
         headers: {
             accept: 'application/json',
             'content-type': 'application/json',
@@ -50,4 +56,19 @@ Cypress.Commands.add('postCheckOutAPI', (userId, token, codeResponse) => {
         expect(response.status).to.eq(codeResponse)
     })
 
+})
+
+Cypress.Commands.add('getBookAPI', (bookId, codeResponse) => {
+    cy.request({
+        method: 'GET',
+        url: `https://app.bookdbqa.online/api/Book/${bookId}`,
+        failOnStatusCode: false,
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json'
+            
+        },
+    }).then((response) => {
+        expect(response.status).to.eq(codeResponse)
+    })
 })
