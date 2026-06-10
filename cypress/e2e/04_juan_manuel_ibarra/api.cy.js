@@ -11,7 +11,7 @@ describe('Casos de prueba API | Juan Manuel Ibarra', () => {
         });
     });
 
-    it.only('API | Error al agregar un libro a la Wishlist sin Token de Autorización (401)', () => {
+    it('API | Error al agregar un libro a la Wishlist sin Token de Autorización (401)', () => {
         const bookId = 2;
         
         // Le pasamos un string vacío en lugar del token para forzar el error de seguridad
