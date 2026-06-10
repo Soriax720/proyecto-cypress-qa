@@ -129,3 +129,16 @@ Cypress.Commands.add('deleteWishlistAPI', (userId, token) => {
         }
     })
 })
+
+Cypress.Commands.add('toggleWishlistAPI', (userId, bookId, token) => {
+    cy.request({
+        method: 'POST',
+        url: `https://app.bookdbqa.online/api/Wishlist/ToggleWishlist/${userId}/${bookId}`,
+        failOnStatusCode: false,
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            authorization: token 
+        }
+    })
+})

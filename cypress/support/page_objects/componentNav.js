@@ -14,4 +14,7 @@ class componentNav {
         
         cy.get('#mat-badge-content-1').contains(count).should('be.visible'); 
     }
+    clickWishlistIcon() {
+        cy.get('button').contains('favorite').click();
+    }
 } module.exports = new componentNav();

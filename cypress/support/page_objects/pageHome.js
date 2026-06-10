@@ -22,4 +22,10 @@ class pageHome {
     clickBookByTitle(bookName) {
         cy.get('.card-title.my-2').contains(bookName).click();
     }
+    
+
+    addBookToWishlistFromCard() {
+        
+        cy.get('app-addtowishlist span.material-icons').contains('favorite').first().click();
+    }
 } module.exports = new pageHome();
