@@ -73,7 +73,7 @@ Cypress.Commands.add('getBookAPI', (bookId, codeResponse) => {
     })
     
 })
-// Comando para la precondición de Luis: Agregar libro al carrito
+
 Cypress.Commands.add('addBookToCartAPI', (userId, bookId, token) => {
     cy.request({
         method: 'POST',
@@ -82,12 +82,12 @@ Cypress.Commands.add('addBookToCartAPI', (userId, bookId, token) => {
         headers: {
             accept: 'application/json',
             'content-type': 'application/json',
-            authorization: token // Toma el Bearer token de tu user.json
+            authorization: token 
         }
     })
 })
 
-// Comando para el test principal de Luis: Checkout con datos de envío
+
 Cypress.Commands.add('checkoutShippingAPI', (userId, token, shippingData, expectedStatus) => {
     cy.request({
         method: 'POST',
@@ -98,8 +98,34 @@ Cypress.Commands.add('checkoutShippingAPI', (userId, token, shippingData, expect
             'content-type': 'application/json',
             authorization: token
         },
-        body: shippingData // Le pasamos el JSON con los datos de envío
+        body: shippingData 
     }).then((response) => {
         expect(response.status).to.eq(expectedStatus)
+    })
+})
+
+Cypress.Commands.add('getSimilarBooksAPI', (bookId, expectedStatus) => {
+    cy.request({
+        method: 'GET',
+        url: `https://app.bookdbqa.online/api/Book/GetSimilarBooks/${bookId}`,
+        failOnStatusCode: false 
+    }).then((response) => {
+        expect(response.status).to.eq(expectedStatus);
+        
+        
+        if (expectedStatus === 200) {
+            expect(response.body).to.be.an('array');
+            expect(response.body.length).to.be.greaterThan(0);
+        }
+    });
+});
+Cypress.Commands.add('deleteWishlistAPI', (userId, token) => {
+    cy.request({
+        method: 'DELETE',
+        url: `https://app.bookdbqa.online/api/Wishlist/${userId}`,
+        failOnStatusCode: false,
+        headers: {
+            authorization: token 
+        }
     })
 })

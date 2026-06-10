@@ -10,5 +10,11 @@ class pageBookDetails {
     validateToastMessage(){
         cy.contains('One Item added to cart', { timeout: 10000 }).should('be.visible')
     }
+    clickAddToWishlistButton() {
+        cy.get('button').contains('Add to Wishlist').click();
+    }
 
+    validateWishlistToast() {
+        cy.contains('Added to Wishlist!!!', { timeout: 10000 }).should('be.visible');
+    }
 } module.exports = new pageBookDetails();
