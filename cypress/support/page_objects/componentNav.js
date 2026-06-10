@@ -10,5 +10,8 @@ class componentNav {
     verifyLoginButtonVisible(){
         cy.get('button').contains('Login').should('be.visible')
     }
-
+    verifyWishlistBadgeCount(count) {
+        
+        cy.get('#mat-badge-content-1').contains(count).should('be.visible'); 
+    }
 } module.exports = new componentNav();

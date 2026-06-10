@@ -15,4 +15,11 @@ class pageHome {
     clickFirstBookCard() {
         cy.get('app-book-card').first().click()
     }
+    searchBook(bookName) {
+        cy.get('input[placeholder="Search books or authors"]').clear().type(`${bookName}{enter}`);
+    }
+
+    clickBookByTitle(bookName) {
+        cy.get('.card-title.my-2').contains(bookName).click();
+    }
 } module.exports = new pageHome();

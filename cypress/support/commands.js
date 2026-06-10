@@ -119,3 +119,13 @@ Cypress.Commands.add('getSimilarBooksAPI', (bookId, expectedStatus) => {
         }
     });
 });
+Cypress.Commands.add('deleteWishlistAPI', (userId, token) => {
+    cy.request({
+        method: 'DELETE',
+        url: `https://app.bookdbqa.online/api/Wishlist/${userId}`,
+        failOnStatusCode: false,
+        headers: {
+            authorization: token 
+        }
+    })
+})
