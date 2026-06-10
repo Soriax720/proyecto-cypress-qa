@@ -103,3 +103,19 @@ Cypress.Commands.add('checkoutShippingAPI', (userId, token, shippingData, expect
         expect(response.status).to.eq(expectedStatus)
     })
 })
+// Comando para obtener libros similares (Caso Mateo)
+Cypress.Commands.add('getSimilarBooksAPI', (bookId, expectedStatus) => {
+    cy.request({
+        method: 'GET',
+        url: `https://app.bookdbqa.online/api/Book/GetSimilarBooks/${bookId}`,
+        failOnStatusCode: false 
+    }).then((response) => {
+        expect(response.status).to.eq(expectedStatus);
+        
+        // Si el caso es exitoso, validamos que devuelva una lista (array)
+        if (expectedStatus === 200) {
+            expect(response.body).to.be.an('array');
+            expect(response.body.length).to.be.greaterThan(0);
+        }
+    });
+});
