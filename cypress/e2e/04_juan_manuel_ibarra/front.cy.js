@@ -16,17 +16,17 @@ describe('Caso de prueba FRONT | Juan Manuel Ibarra', () => {
         cy.visit(url.login);
         cy.login(user.name, user.password);
 
-        // 2. Agregar a Wishlist desde el Home
+        
         pageHome.validateBookTitle(bookName);
         componentNav.verifyWishlistBadgeCount('0'); 
         pageHome.addBookToWishlistFromCard();
         componentNav.verifyWishlistBadgeCount('1'); 
 
-        // 3. Navegar a la página de Wishlist
+        
         componentNav.clickWishlistIcon();
         cy.url().should('include', 'wishlist');
 
-        // 4. Eliminar el libro y validar que quede vacía
+        
         pageWishlist.clickRemoveFromWishlist();
         componentNav.verifyWishlistBadgeCount('0');
         pageWishlist.validateEmptyWishlist();

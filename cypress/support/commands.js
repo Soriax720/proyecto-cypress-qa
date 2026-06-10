@@ -1,6 +1,7 @@
 const pageLogin = require('../support/page_objects/pageLogin')
 const pageHome = require('../support/page_objects/pageHome')
-const pageShoppingCart = require('../support/page_objects/pageShoppingCart')
+const pageShoppingCart = require('../support/page_objects/pageShoppingCart');
+
 Cypress.Commands.add('login', (user, password) => {
     pageLogin.typeUserName(user);
     pageLogin.typePassword(password);
@@ -138,7 +139,7 @@ Cypress.Commands.add('toggleWishlistAPI', (userId, bookId, token) => {
         headers: {
             accept: 'application/json',
             'content-type': 'application/json',
-            authorization: token 
+            authorization: token
         }
     })
 })
