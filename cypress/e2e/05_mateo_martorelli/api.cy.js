@@ -2,7 +2,7 @@
 
 describe('Casos de prueba API | Mateo Martorelli', () => {
 
-    it.skip('API | Obtener libros similares a un libro existente exitosamente', () => {
+    it('API | Obtener libros similares a un libro existente exitosamente', () => {
         cy.getSimilarBooksAPI(2, 200);
     });
 
